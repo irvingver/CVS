@@ -1,0 +1,78 @@
+EJERCICIO 1: Delete Nodes Greater tan X
+Complete the removeNodes function provided in your editor. It has 2 parameters:
+ 
+list: A reference to a LinkedListNode that is the head of a linked list.
+x: An integer value.
+ 
+Your function should remove all nodes from the list having data values greater than x, and then return the head of the modified linked list.
+ 
+Input Format
+The locked stub code in your editor processes the following inputs and passes the necessary arguments to the removeNodes function:
+The first line contains N, the number of nodes in the linked list.
+Each line i (where 0 ≤ i < N) of the N subsequent lines contains an integer representing the value of a node in the linked list. The last line contains an integer, x.
+ 
+Constraints
+1 ≤ N, x ≤ 105
+1 ≤ listi ≤ 105, where 0 ≤ i < N
+ 
+Output Format
+Return the linked list after removing the nodes containing values > x.
+
+
+
+
+
+
+
+EJERCICIO 2: SIMPLE QUERIES
+Amy has an array, nums, of n positive integers and another array, maxes, of m positive integers. For each maxesi in maxes, she wants to know the total number of elements in nums which are less than or equal to that maxesi. For example, if nums = [1, 2, 3] and maxes = [2, 4], then there are 2 elements in nums that are ≤ maxes0 (which is 2) and 3 elements in nums that are ≤ maxes1 (which is 4). We can store these respective answers in another array, answer = [2, 3].
+ 
+Complete the counts function in the editor below. It has two parameters:
+An array, nums, of n positive integers.
+An array, maxes, of m positive integers.
+The function must return an array of m positive integers in which the integer at each index i (where 0 ≤ i < m) denotes the total number of elements numsj (where 0 ≤ j < n) satisfying numsj ≤ maxesi.
+ 
+Input Format
+Locked stub code in the editor reads the following input from stdin and passes it to the function:
+The first line contains an integer, n, denoting the number of elements in nums.
+Each line j of the n subsequent lines (where 0 ≤ j < n) contains an integer describing numsj.
+The next line contains an integer, m, denoting the number of elements in maxes.
+Each line i of the m subsequent lines (where 0 ≤ i < m) contains an integer describing maxesi.
+ 
+Constraints
+2 ≤ n, m ≤ 105
+1 ≤ numsj ≤ 109, where 0 ≤ j < n.
+1 ≤ maxesi ≤ 109, where 0 ≤ i < m.
+ 
+Output Format
+The function must return an array of m integers where the value stored at each index i (where 0 ≤ i < m) denotes the total number of elements numsj (where 0 ≤ j < n) satisfying numsj ≤ maxesi. This is printed to stdout by locked stub code in the editor.
+
+
+static LinkedListNode removeNodes(LinkedListNode list, int x) {
+        LinkedListNode cur;
+
+        // Check if we have to update the head of the list. We do this
+        //  when the first item in the list is greater than x.
+        while(list != null && list.val > x) {
+            list = list.next;
+        }
+
+        // If the list is empty, or we removed all items, then return
+        //  the empty list
+        if( list == null )
+            return list;
+
+        // Use cur to traverse the list
+        cur = list;
+
+        // At this point, cur.val is valid. So I need to check cur.next.val
+        while(cur.next != null) {
+            if (cur.next.val > x) {
+                cur.next = cur.next.next; // skip the node
+            } else {
+                cur = cur.next; // don't skip, just update cur
+            }
+        }
+
+        return list; // return the head of the list
+    }
